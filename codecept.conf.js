@@ -1,11 +1,4 @@
-const { setHeadlessWhen } = require('@codeceptjs/configure');
-
-// turn on headless mode when running with HEADLESS=true environment variable
-// HEADLESS=true npx codecept run
-setHeadlessWhen(process.env.HEADLESS);
-
 exports.config = {
-  tests: './tests/E2E/*_test.js',
   output: './tests/E2E/output',
   helpers: {
     Puppeteer: {
@@ -16,16 +9,23 @@ exports.config = {
   include: {
     I: './tests/E2E/steps_file.js'
   },
-  bootstrap: null,
   mocha: {},
-  name: 'tamb_gourmet_map',
-  translation: 'ja-JP',
+  bootstrap: null,
+  teardown: null,
+  hooks: [],
+  gherkin: {
+    features: './tests/E2E/features/*.feature',
+    steps: ['./tests/E2E/step_definitions/steps.js']
+  },
   plugins: {
-    retryFailedStep: {
-      enabled: true
-    },
     screenshotOnFail: {
       enabled: true
+    },
+    retryFailedStep: {
+      enabled: true
     }
-  }
+  },
+  tests: './tests/E2E/*_test.js',
+  name: 'tamb_gourmet_map',
+  translation: 'ja-JP'
 }
