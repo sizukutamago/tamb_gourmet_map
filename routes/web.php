@@ -16,6 +16,6 @@ Route::get('/', function () {
 });
 
 Route::post('/slack/subscribe', function (\Illuminate\Http\Request $request) {
-    $urls = getUrlFromText($request->event['text']);
+    $urls = getUrlFromText($request->event['text'] ?? '');
     return $request;
 })->name('slack.subscribe');
