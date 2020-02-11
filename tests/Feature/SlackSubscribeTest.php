@@ -13,26 +13,28 @@ class SlackSubscribeTest extends TestCase
 https://example.com
 EOD;
 
+    const CHALLENGE_TOKEN = 'randomString';
+
 
     private function createSlackEvent(): array {
         return [
             'event' => [
                 'text' => self::TEXT
             ],
+            'challenge' => self::CHALLENGE_TOKEN
         ];
     }
 
     /**
-     * A basic feature test example.
-     *
-     * @return void
+     * @test
      */
-    public function testExample()
+    public function slackからのレスポンスにはチャレンジトークンを返す()
     {
         $response = $this->post(
             route('slack.subscribe'), $this->createSlackEvent()
         );
 
         $response->assertStatus(200);
+        $this->assertSame(self::CHALLENGE_TOKEN, $response->decodeResponseJson('challenge'));
     }
 }
