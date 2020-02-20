@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Tests\Mock\SlackRequestMock;
 use Tests\TestCase;
 
 class SlackSubscribeTest extends TestCase
@@ -15,23 +16,13 @@ EOD;
 
     const CHALLENGE_TOKEN = 'randomString';
 
-
-    private function createSlackEvent(): array {
-        return [
-            'event' => [
-                'text' => self::TEXT
-            ],
-            'challenge' => self::CHALLENGE_TOKEN
-        ];
-    }
-
     /**
      * @test
      */
     public function slackからのレスポンスにはチャレンジトークンを返す()
     {
         $response = $this->post(
-            route('slack.subscribe'), $this->createSlackEvent()
+            route('slack.subscribe'), SlackRequestMock::createSlackEvent(self::TEXT, self::CHALLENGE_TOKEN)
         );
 
         $response->assertStatus(200);
