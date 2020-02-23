@@ -15,13 +15,12 @@ class TabelogAdapter
     public function __construct(string $url)
     {
         $this->url = $url;
-        $this->html = mb_convert_encoding(file_get_contents($this->url), 'HTML-ENTITIES', 'UTF-8');
+        $this->html = file_get_contents($this->url);
     }
 
     public function getStoreInfo(): Store
     {
         preg_match('{<h2 class="display-name">.*?<span>(.*?)</span>.*?</h2>}s', $this->html, $matches);
-        $storeName =  trim(html_entity_decode($matches[1], ENT_HTML5));
-        return new Store($storeName);
+        return new Store(trim($matches[1]));
     }
 }
