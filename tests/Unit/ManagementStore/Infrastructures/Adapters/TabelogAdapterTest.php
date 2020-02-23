@@ -20,7 +20,7 @@ class TabelogAdapterTest extends TestCase
     }
 
     /**
-     *
+     * @test
      */
     public function 食べログのURLから店舗の情報を取得する()
     {
