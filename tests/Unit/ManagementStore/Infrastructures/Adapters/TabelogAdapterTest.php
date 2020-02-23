@@ -25,6 +25,6 @@ class TabelogAdapterTest extends TestCase
     public function 食べログのURLから店舗の情報を取得する()
     {
         $storeInfo = $this->tabelogAdapter->getStoreInfo();
-        $this->assertSame('マクドナルド  梅田茶屋町店', $storeInfo['name']);
+        $this->assertSame('マクドナルド  梅田茶屋町店', $storeInfo->getName());
     }
 }
